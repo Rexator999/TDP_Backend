@@ -1,0 +1,55 @@
+* {color: green; size: 10cm;}
+
+#tagInput {
+    width: 30%;
+}
+
+.tag-container {
+    display: flex;
+    width: 30%;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+    border: 1px solid black;
+}
+
+.tag {
+    background-color: green;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.tag .close-btn {
+    margin-left: 10px;
+    background-color: darkgreen;
+    padding: 0 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+
+
+nav {
+    display: inline-block; 
+    background-color: lightgreen; 
+    width: 99%;
+    border: 10px solid lightgreen;
+    position: fixed;
+    top: 0;
+}
+
+
+nav a {
+    padding:  0.2em 0.6em;
+    margin-right: 1%;
+    border: 2px solid black;
+    background-color: lightgray;
+    height: auto;
+    position: relative;
+}
+
+nav a:hover {border-color: darkgreen; color: lightgreen; background-color: green;}

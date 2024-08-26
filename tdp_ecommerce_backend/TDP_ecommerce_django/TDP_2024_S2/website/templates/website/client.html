@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Page</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script src="{% static 'js/home.js' %}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $("#slider-range").slider({
+                range: true,
+                min: 0,
+                max: 100,
+                values: [10, 50],
+                slide: function(event, ui) {
+                    $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                    $("#minPrice").val(ui.values[0]);
+                    $("#maxPrice").val(ui.values[1]);
+                }
+            });
+    
+            $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+                " - $" + $("#slider-range").slider("values", 1));
+            $("#minPrice").val($("#slider-range").slider("values", 0));
+            $("#maxPrice").val($("#slider-range").slider("values", 1));
+        });
+    </script>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'client' %}" class="navigation">Consumer</a>
+
+        <a href="{% url 'seller' %}" class="navigation">Seller</a>
+    </nav>
+    <br>
+    <br>
+    <h1>Consumer</h1>
+    <form action="{% url 'client' %}" method="POST">
+            {% csrf_token %}
+            <p>
+                <label for="amount">Price range:</label>
+                <input type="text" id="amount" readonly="" style="border:0; color:#0fa50f; font-weight:bold;">
+            </p>
+            <div id="slider-range"></div>
+            <input type="hidden" id="minPrice" name="minPrice">
+            <input type="hidden" id="maxPrice" name="maxPrice">
+
+            <P><label>Date:</label><input type="date" id="currentdate" name="currentdate"></P>
+            <label>Product Type:</label>
+            <select id="productType" name="productType">
+                <option value="Tech">Tech</option>
+                <option value="Furniture">Furniture</option>
+                <option value="Food">Food</option>
+                <option value="Clothes">Clothes</option>
+                <option value="Music">Music</option>
+                <option value="Games">Games</option>
+                <option value="Books">Books</option>
+                <option value="Movies">Movies</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Pet">Pet</option>
+                <option value="Arts">Arts</option>
+            </select>
+            <br>
+            <p><label>Product Description:</label></p>
+            <textarea id="productdetails" name="productdetails" cols="60" rows="8"></textarea>
+            <br>
+
+            <input type="text" id="tagInput" placeholder="Enter a keyword and then press Enter" />
+            <div id="tagContainer" class="tag-container"></div>
+            <br>
+            <p><label>Search Type:</label></p>
+            <input type="checkbox" id="MostViews" name="MostViews" value="MostViews"><label>Most viewed</label>
+            <input type="checkbox" id="Newest" name="Newest" value="Newest"><label>Newest</label>
+            <input type="checkbox" id="TopRated" name="TopRated" value="TopRated"><label>Top Rated</label>
+
+            <br>
+            <br>
+            
+            <input type="submit" value="Submit Request">
+    </form>
+
+</body>
+</html>
