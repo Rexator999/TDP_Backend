@@ -5,7 +5,8 @@ from . import views
 
 urlpatterns = [
     path('', views.homepage, name=""),
-    path('client', views.clientpage, name="client"),
+    path('client1', views.clientpage1, name="client1"),
+    path('client2', views.clientpage2, name="client2"),
     path('seller', views.sellerpage, name="seller"),
     path('test', views.testingpage, name="test"),
     path('imagesuccess/<int:image_id>/', views.imagesuccess, name="imagesuccess"),

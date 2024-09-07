@@ -7,7 +7,17 @@ from .forms import SellerForm
 def homepage(request):
     return render(request, 'website/home.html')
 
-def clientpage(request):
+def clientpage1(request):
+    if request.method == 'POST':
+        key_words = request.POST.getlist('keywords')
+        
+        context = {
+            'key_words' : key_words,
+        }
+        return render(request, 'website/client2.html', context)
+    return render(request, 'website/client1.html')
+
+def clientpage2(request):
     if request.method == 'POST':
         min_price = request.POST.get('minPrice')
         max_price = request.POST.get('maxPrice')
@@ -45,7 +55,7 @@ def clientpage(request):
             'top_rated': top_rated,
         }
         return render(request, 'website/clientresults.html', context)
-    return render(request, 'website/client.html')
+    return render(request, 'website/client2.html')
 
 def sellerpage(request):
     if request.method == 'POST':

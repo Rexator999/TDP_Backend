@@ -34,14 +34,14 @@
 </head>
 <body>
     <nav>
-        <a href="{% url 'client' %}" class="navigation">Consumer</a>
+        <a href="{% url 'client1' %}" class="navigation">Consumer</a>
 
         <a href="{% url 'seller' %}" class="navigation">Seller</a>
     </nav>
     <br>
     <br>
     <h1>Consumer</h1>
-    <form action="{% url 'client' %}" method="POST">
+    <form action="{% url 'client2' %}" method="POST">
             {% csrf_token %}
             <p>
                 <label for="amount">Price range:</label>
@@ -51,13 +51,15 @@
             <input type="hidden" id="minPrice" name="minPrice">
             <input type="hidden" id="maxPrice" name="maxPrice">
 
+            <input type="hidden" id="keywords" name="keywords" value="{{ key_words }}">
+
             <P><label>Date:</label><input type="date" id="currentdate" name="currentdate"></P>
             <label>Product Type:</label>
             <select id="productType" name="productType">
                 <option value="Tech">Tech</option>
                 <option value="Furniture">Furniture</option>
                 <option value="Food">Food</option>
-                <option value="Clothes">Clothes</option>
+                <option value="Fashion">Clothes</option>
                 <option value="Music">Music</option>
                 <option value="Games">Games</option>
                 <option value="Books">Books</option>
@@ -69,10 +71,6 @@
             <br>
             <p><label>Product Description:</label></p>
             <textarea id="productdetails" name="productdetails" cols="60" rows="8"></textarea>
-            <br>
-
-            <input type="text" id="tagInput" placeholder="Enter a keyword and then press Enter" />
-            <div id="tagContainer" class="tag-container"></div>
             <br>
             <p><label>Search Type:</label></p>
             <input type="checkbox" id="MostViews" name="MostViews" value="MostViews"><label>Most viewed</label>
