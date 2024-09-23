@@ -1,8 +1,16 @@
 from django.db import models
 import itertools
 
+class Client(models.Model):
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.email
+
 class ClientRequest(models.Model):
-    client_id = models.CharField(max_length=10, unique=True, editable=False)
+    request_id = models.CharField(max_length=10, unique=True, editable=False)
+    client = models.CharField(max_length=100)
     min_price = models.IntegerField()
     max_price = models.IntegerField()
     current_date = models.DateField()
@@ -14,20 +22,45 @@ class ClientRequest(models.Model):
     top_rated = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        if not self.client_id:
+        if not self.request_id:
             #this will genarate a new client id
             last_client = ClientRequest.objects.order_by('id').last()
             if last_client:
-                last_id = int(last_client.client_id.replace('Client ', ''))
+                last_id = int(last_client.request_id.replace('Request ', ''))
                 new_id = last_id + 1
             else:
                 new_id = 1
-            self.client_id = f"Client {new_id}"
+            self.request_id = f"Request {new_id}"
         super().save(*args, **kwargs)
     
     def __str__(self):
-        return f"{self.client_id} - {self.product_type} request on {self.current_date}"
+        return f"{self.request_id} - {self.product_type} request on {self.current_date}"
     
 class Seller(models.Model):
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.email
+    
+    
+class SellerProduct(models.Model):
+    seller = models.CharField(max_length=100)
     image = models.ImageField(upload_to='images/')
+    product_id = models.CharField(max_length=10, unique=True, editable=False)
+
+    def save(self, *args, **kwargs):
+        if not self.product_id:
+            #this will genarate a new client id
+            last_product = SellerProduct.objects.order_by('id').last()
+            if last_product:
+                last_id = int(last_product.product_id.replace('Product ID ', ''))
+                new_id = last_id + 1
+            else:
+                new_id = 1
+            self.product_id = f"Product ID {new_id}"
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.product_id}"
 

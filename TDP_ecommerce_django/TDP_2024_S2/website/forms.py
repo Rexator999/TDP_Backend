@@ -1,7 +1,7 @@
 from django import forms
-from .models import Seller
+from .models import SellerProduct
 
 class SellerForm(forms.ModelForm):
     class Meta:
-        model = Seller
+        model = SellerProduct
         fields = ['image']

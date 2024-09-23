@@ -31,19 +31,7 @@
 }
 
 
-
-
-nav {
-    display: inline-block; 
-    background-color: lightgreen; 
-    width: 99%;
-    border: 10px solid lightgreen;
-    position: fixed;
-    top: 0;
-}
-
-
-nav a {
+a {
     padding:  0.2em 0.6em;
     margin-right: 1%;
     border: 2px solid black;
@@ -52,4 +40,5 @@ nav a {
     position: relative;
 }
 
-nav a:hover {border-color: darkgreen; color: lightgreen; background-color: green;}
+a:hover {border-color: darkgreen; color: lightgreen; background-color: green;}
+
