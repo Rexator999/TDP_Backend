@@ -9,7 +9,8 @@
     <h1>Client Results Data</h1>
     <p>Client: {{ ClientLoginEmail }}</p>
     <p>Price Range: ${{ min_price }} - ${{ max_price }}</p>
-    <p>Date: {{ current_date }}</p>
+    <p>Start Date: {{ current_date }}</p>
+    <p>End Date: {{ end_date }}</p>
     <p>Product Type: {{ product_type }}</p>
     <p>Product Description: {{ product_details }}</p>
     <p>Key Words: {{ key_words }}</p>
@@ -24,5 +25,6 @@
     {% if top_rated %}
         <p>Top Rated: Yes</p>
     {% endif %}
+    <a href="{% url 'client1' %}">Return</a>
 </body>
 </html>

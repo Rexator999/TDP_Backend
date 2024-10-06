@@ -12,6 +12,4 @@ urlpatterns = [
     path('sellerlogin', views.sellerloginpage, name="sellerlogin"),
     path('sellerregister', views.sellerregisterpage, name="sellerregister"),
     path('seller', views.sellerpage, name="seller"),
-    path('imagesuccess/<int:image_id>/', views.imagesuccess, name="imagesuccess"),
-
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

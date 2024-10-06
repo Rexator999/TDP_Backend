@@ -66,6 +66,7 @@ def clientpage2(request):
         if request.method == 'POST':
             min_price = request.POST.get('minPrice')
             max_price = request.POST.get('maxPrice')
+            date_selection = request.POST.get('date')
             current_date = request.POST.get('currentdate')
             product_type = request.POST.get('productType')
             product_details = request.POST.get('productdetails')
@@ -74,12 +75,15 @@ def clientpage2(request):
             newest = bool(request.POST.get('Newest', False))
             top_rated = bool(request.POST.get('TopRated', False))
 
+            if date_selection == 'Custom':
+                date_selection = current_date,
+
             #This is used to save to database
             client_request = ClientRequest(
                 client=ClientLoginEmail,
                 min_price=min_price,
                 max_price=max_price,
-                current_date=current_date,
+                end_date=date_selection,
                 product_type=product_type,
                 product_details=product_details,
                 key_words=','.join(key_words),
@@ -94,6 +98,7 @@ def clientpage2(request):
                 'min_price': min_price,
                 'max_price': max_price,
                 'current_date': current_date,
+                'end_date': date_selection,
                 'product_type': product_type,
                 'product_details': product_details,
                 'key_words' : key_words,
@@ -143,20 +148,19 @@ def sellerpage(request):
     global SellerAccess
     if SellerAccess == 1:
         if request.method == 'POST':
-            form = SellerForm(request.POST, request.FILES)
-            if form.is_valid():
-                instance = form.save()
-                return redirect('imagesuccess', image_id=instance.id)
-        else:
-            form = SellerForm()
-        return render(request, 'website/seller.html', {'form': form})
-    else:
-        return render(request, 'website/landingpage.html')
+            image = request.FILES.get('image')
 
-def imagesuccess(request, image_id):
-    global SellerAccess
-    if SellerAccess == 1:
-        image = SellerProduct.objects.get(id=image_id)
-        return render(request, 'website/successimage.html', {'image': image})
+            seller_product = SellerProduct(
+                seller=SellerLoginEmail,
+                image=image,
+            )
+            seller_product.save()
+
+            context = {
+                'seller' : SellerLoginEmail,
+                'image' : seller_product.image.url,
+            }
+            return render(request, 'website/sellerproduct.html', context)
+        return render(request, 'website/seller.html')
     else:
         return render(request, 'website/landingpage.html')

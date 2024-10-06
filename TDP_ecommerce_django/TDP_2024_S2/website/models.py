@@ -1,5 +1,6 @@
 from django.db import models
 import itertools
+import datetime
 
 class Client(models.Model):
     email = models.EmailField(unique=True)
@@ -13,7 +14,8 @@ class ClientRequest(models.Model):
     client = models.CharField(max_length=100)
     min_price = models.IntegerField()
     max_price = models.IntegerField()
-    current_date = models.DateField()
+    request_date = models.DateField( default=datetime.date.today)
+    end_date = models.CharField(max_length=11)
     product_type = models.CharField(max_length=50)
     product_details = models.TextField()
     key_words = models.TextField()
@@ -34,7 +36,7 @@ class ClientRequest(models.Model):
         super().save(*args, **kwargs)
     
     def __str__(self):
-        return f"{self.request_id} - {self.product_type} request on {self.current_date}"
+        return f"{self.request_id} - {self.product_type} request on {self.request_date}"
     
 class Seller(models.Model):
     email = models.EmailField(unique=True)
