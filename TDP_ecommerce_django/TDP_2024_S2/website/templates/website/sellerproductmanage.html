@@ -27,7 +27,7 @@
                 <tr>
                     <td>{{ request.product_id }}</td>
                     <td>{{ request.key_words }}</td>
-                    <td><img src="{{ request.image }}" alt="Uploaded Image" style="max-width: 500px;"></td>
+                    <td><img src="{{ request.image.url }}" alt="Uploaded Image" style="max-width: 500px;"></td>
                 </tr>
                 {% endfor %}
             </tbody>

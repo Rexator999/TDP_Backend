@@ -96,7 +96,7 @@ def clientpage2(request):
                 product_type=product_type,
                 product_details=product_details,
                 key_words=','.join(key_words),
-                prototype_con = product_condition,
+                product_con = product_condition,
             )
             client_request.save()
                 
