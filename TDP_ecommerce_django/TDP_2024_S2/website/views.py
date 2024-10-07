@@ -54,8 +54,22 @@ def clientpage1(request):
             context = {
                 'key_words' : key_words,
             }
-            return render(request, 'website/client2.html', context)
-        return render(request, 'website/client1.html')
+            return render(request, 'website/clientpreferences.html', context)
+        return render(request, 'website/clientkeywords.html')
+    else:
+        return render(request, 'website/landingpage.html')
+    
+def clientpage1_2(request):
+    global ClientAccess
+    if ClientAccess == 1:
+        if request.method == 'POST':
+            key_words = request.POST.getlist('keywords')
+            
+            context = {
+                'key_words' : key_words,
+            }
+            return render(request, 'website/clientpreferences.html', context)
+        return render(request, 'website/clientkeywords2.html')
     else:
         return render(request, 'website/landingpage.html')
 
@@ -71,9 +85,8 @@ def clientpage2(request):
             product_type = request.POST.get('productType')
             product_details = request.POST.get('productdetails')
             key_words = request.POST.getlist('keywords')
-            most_views = bool(request.POST.get('MostViews', False))
-            newest = bool(request.POST.get('Newest', False))
-            top_rated = bool(request.POST.get('TopRated', False))
+            firstHand = bool(request.POST.get('MostViews', False))
+            secondHand = bool(request.POST.get('Newest', False))
 
             if date_selection == 'Custom':
                 date_selection = current_date,
@@ -87,9 +100,8 @@ def clientpage2(request):
                 product_type=product_type,
                 product_details=product_details,
                 key_words=','.join(key_words),
-                most_views=most_views,
-                newest=newest,
-                top_rated=top_rated,
+                firsthand=firstHand,
+                secondhand=secondHand,
             )
             client_request.save()
                 
@@ -102,12 +114,11 @@ def clientpage2(request):
                 'product_type': product_type,
                 'product_details': product_details,
                 'key_words' : key_words,
-                'most_views': most_views,
-                'newest': newest,
-                'top_rated': top_rated,
+                'firsthand': firstHand,
+                'secondhand': secondHand,
             }
             return render(request, 'website/clientresults.html', context)
-        return render(request, 'website/client2.html')
+        return render(request, 'website/clientpreferences.html')
     else:
         return render(request, 'website/landingpage.html')
     
@@ -123,7 +134,7 @@ def sellerloginpage(request):
             user = Seller.objects.get(email=UserEmail, password=UserPassword)
             SellerAccess = 1
             SellerLoginEmail = UserEmail
-            return redirect("seller")
+            return redirect("seller1")
         except Seller.DoesNotExist:
             Access = 0
             return render(request, 'website/sellerlogin.html', {'error_message': 'Email and Password Invalid'})
@@ -142,25 +153,54 @@ def sellerregisterpage(request):
         return render(request, 'website/sellerlogin.html')
     return render(request, 'website/sellerregister.html')   
 
+def sellerpage1(request):
+    global SellerAccess
+    if SellerAccess == 1:
+        if request.method == 'POST':
+            key_words = request.POST.getlist('keywords')
+            
+            context = {
+                'key_words' : key_words,
+            }
+            return render(request, 'website/sellerimage.html', context)
+        return render(request, 'website/sellerkeywords.html')
+    else:
+        return render(request, 'website/landingpage.html')
+    
+def sellerpage1_2(request):
+    global SellerAccess
+    if SellerAccess == 1:
+        if request.method == 'POST':
+            key_words = request.POST.getlist('keywords')
+            
+            context = {
+                'key_words' : key_words,
+            }
+            return render(request, 'website/sellerimage.html', context)
+        return render(request, 'website/sellerkeywords2.html')
+    else:
+        return render(request, 'website/landingpage.html')
 
-
-def sellerpage(request):
+def sellerpage2(request):
     global SellerAccess
     if SellerAccess == 1:
         if request.method == 'POST':
             image = request.FILES.get('image')
+            key_words = request.POST.getlist('keywords')
 
             seller_product = SellerProduct(
                 seller=SellerLoginEmail,
                 image=image,
+                key_words=','.join(key_words),
             )
             seller_product.save()
 
             context = {
                 'seller' : SellerLoginEmail,
                 'image' : seller_product.image.url,
+                'key_words' : key_words,
             }
             return render(request, 'website/sellerproduct.html', context)
-        return render(request, 'website/seller.html')
+        return render(request, 'website/sellerimage.html')
     else:
         return render(request, 'website/landingpage.html')

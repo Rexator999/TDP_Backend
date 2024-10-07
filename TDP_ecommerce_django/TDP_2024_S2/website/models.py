@@ -19,9 +19,8 @@ class ClientRequest(models.Model):
     product_type = models.CharField(max_length=50)
     product_details = models.TextField()
     key_words = models.TextField()
-    most_views = models.BooleanField(default=False)
-    newest = models.BooleanField(default=False)
-    top_rated = models.BooleanField(default=False)
+    firsthand = models.BooleanField(default=False)
+    secondhand = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if not self.request_id:
@@ -49,6 +48,7 @@ class Seller(models.Model):
 class SellerProduct(models.Model):
     seller = models.CharField(max_length=100)
     image = models.ImageField(upload_to='images/')
+    key_words = models.TextField()
     product_id = models.CharField(max_length=10, unique=True, editable=False)
 
     def save(self, *args, **kwargs):

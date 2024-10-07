@@ -7,9 +7,9 @@ class ClientAdmin(admin.ModelAdmin):
 
 @admin.register(ClientRequest)
 class ClientRequestAdmin(admin.ModelAdmin):
-    list_display = ('request_id', 'client', 'min_price', 'max_price', 'request_date', 'end_date', 'product_type', 'most_views', 'newest', 'top_rated')
+    list_display = ('request_id', 'client', 'min_price', 'max_price', 'request_date', 'end_date', 'product_type', 'firsthand', 'secondhand')
     search_fields = ('product_type', 'product_details')
-    list_filter = ('request_date', 'product_type', 'most_views', 'newest', 'top_rated')
+    list_filter = ('request_date', 'product_type', 'firsthand', 'secondhand')
 
 @admin.register(Seller)
 class SellerAdmin(admin.ModelAdmin):
@@ -17,7 +17,7 @@ class SellerAdmin(admin.ModelAdmin):
 
 @admin.register(SellerProduct)
 class SellerProductAdmin(admin.ModelAdmin):
-    list_display = ('product_id', 'seller', 'display_image')
+    list_display = ('product_id', 'seller', 'display_image', 'key_words')
 
     def display_image(self, obj):
         if obj.image:

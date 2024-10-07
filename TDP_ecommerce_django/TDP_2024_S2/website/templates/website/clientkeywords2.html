@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Page</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script src="{% static 'js/keywords.js' %}" defer></script>
+</head>
+<body>
+    <br>
+    <br>
+    <h1>Consumer Request Key words:</h1>
+    <form action="{% url 'client1_2' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" id="tagInput" placeholder="Please Upload an image" readonly/>
+            <div id="tagContainer" class="tag-container"></div>
+
+            <label>Choose an image to upload:</label>
+            <input type="file" name="image" accept="image/*" required>
+            <br>
+            <button type="button" id="generateButton">Generate </button>
+
+            <br>
+            <br>
+            <a href="{% url 'client1' %}">Generate Keywords Manually</a>
+            <br>
+            <br>
+            <input type="submit" value="Submit Request">
+    </form>
+    <button onclick="location.reload(true);">Clear</button>
+</body>
+</html>

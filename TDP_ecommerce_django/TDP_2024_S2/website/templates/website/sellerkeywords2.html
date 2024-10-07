@@ -8,19 +8,29 @@
     <link rel="stylesheet" href="/resources/demos/style.css">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <script src="{% static 'js/client.js' %}" defer></script>
+    <script src="{% static 'js/keywords.js' %}" defer></script>
 </head>
 <body>
     <br>
     <br>
     <h1>Consumer Request Key words:</h1>
-    <form action="{% url 'client1' %}" method="POST">
+    <form action="{% url 'seller1_2' %}" method="POST">
             {% csrf_token %}
-            <input type="text" id="tagInput" placeholder="Enter a keyword and then press Enter" />
+            <input type="text" id="tagInput" placeholder="Please Upload an image" readonly/>
             <div id="tagContainer" class="tag-container"></div>
-            
+
+            <label>Choose an image to upload:</label>
+            <input type="file" name="image" accept="image/*" required>
+            <br>
+            <button type="button" id="generateButton">Generate </button>
+
+            <br>
+            <br>
+            <a href="{% url 'seller1' %}">Generate Keywords Manually</a>
+            <br>
+            <br>
             <input type="submit" value="Submit Request">
     </form>
-
+    <button onclick="location.reload(true);">Clear</button>
 </body>
 </html>

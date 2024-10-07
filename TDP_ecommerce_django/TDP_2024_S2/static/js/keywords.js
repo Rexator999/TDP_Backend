@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    
+    const tagInput = document.getElementById('tagInput');
+    const tagContainer = document.getElementById('tagContainer');
+    const generateBtn = document.getElementById('generateButton');
+
     tagInput.addEventListener('keypress', function(event) {
         if (event.key === 'Enter') {
             const tagText = tagInput.value.trim();
@@ -9,6 +12,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             event.preventDefault(); // Prevent form submission if inside a form
         }
+    });
+
+    generateBtn.addEventListener('click', function() {
+        const generatedWords = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'];
+        generatedWords.forEach(word => {
+            tagInput.value = word;
+            const enterEvent = new KeyboardEvent('keypress', { key: 'Enter' });
+            tagInput.dispatchEvent(enterEvent); // Trigger the 'Enter' event automatically
+        });
     });
 
     function createTag(text) {

@@ -16,14 +16,11 @@
     <p>Key Words: {{ key_words }}</p>
 
     <p>Search Type:</p>
-    {% if most_views %}
-        <p>Most Viewed: Yes</p>
+    {% if firsthand %}
+        <p>First Hand: Yes</p>
     {% endif %}
-    {% if newest %}
-        <p>Newest: Yes</p>
-    {% endif %}
-    {% if top_rated %}
-        <p>Top Rated: Yes</p>
+    {% if secondhand %}
+        <p>Second Hand: Yes</p>
     {% endif %}
     <a href="{% url 'client1' %}">Return</a>
 </body>
