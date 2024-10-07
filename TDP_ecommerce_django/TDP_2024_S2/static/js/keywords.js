@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const tagInput = document.getElementById('tagInput');
     const tagContainer = document.getElementById('tagContainer');
     const generateBtn = document.getElementById('generateButton');
+    const image = document.getElementById('image');
 
     tagInput.addEventListener('keypress', function(event) {
         if (event.key === 'Enter') {
