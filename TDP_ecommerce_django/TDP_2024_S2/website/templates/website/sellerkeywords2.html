@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client Page</title>
+    <title>Client Page 2</title>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     {% load static %}
@@ -11,9 +11,11 @@
     <script src="{% static 'js/keywords.js' %}" defer></script>
 </head>
 <body>
+    <a href="{% url 'seller1' %}">Upload a Product</a>
+    <a href="{% url 'sellermanage' %}">My Products</a>
     <br>
     <br>
-    <h1>Consumer Request Key words:</h1>
+    <h1>Product Key words:</h1>
     <form action="{% url 'seller1_2' %}" method="POST">
             {% csrf_token %}
             <input type="text" id="tagInput" placeholder="Please Upload an image" readonly/>

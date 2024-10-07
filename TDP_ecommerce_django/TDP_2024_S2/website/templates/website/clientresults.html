@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Client Results Data</h1>
-    <p>Client: {{ ClientLoginEmail }}</p>
+    <p>Client: {{ client }}</p>
     <p>Price Range: ${{ min_price }} - ${{ max_price }}</p>
     <p>Start Date: {{ current_date }}</p>
     <p>End Date: {{ end_date }}</p>
@@ -15,13 +15,8 @@
     <p>Product Description: {{ product_details }}</p>
     <p>Key Words: {{ key_words }}</p>
 
-    <p>Search Type:</p>
-    {% if firsthand %}
-        <p>First Hand: Yes</p>
-    {% endif %}
-    {% if secondhand %}
-        <p>Second Hand: Yes</p>
-    {% endif %}
+    <p>Search Type: {{ condition }}</p>
+
     <a href="{% url 'client1' %}">Return</a>
 </body>
 </html>

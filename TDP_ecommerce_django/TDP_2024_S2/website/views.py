@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.mail import send_mail
 from .models import Client, Seller, ClientRequest, SellerProduct
-from .forms import SellerForm
 
 ClientAccess = 0
 SellerAccess = 0
@@ -50,11 +49,10 @@ def clientpage1(request):
     if ClientAccess == 1:
         if request.method == 'POST':
             key_words = request.POST.getlist('keywords')
-            
-            context = {
-                'key_words' : key_words,
-            }
-            return render(request, 'website/clientpreferences.html', context)
+
+            request.session['key_words'] = key_words
+
+            return redirect("client2")
         return render(request, 'website/clientkeywords.html')
     else:
         return render(request, 'website/landingpage.html')
@@ -65,10 +63,9 @@ def clientpage1_2(request):
         if request.method == 'POST':
             key_words = request.POST.getlist('keywords')
             
-            context = {
-                'key_words' : key_words,
-            }
-            return render(request, 'website/clientpreferences.html', context)
+            request.session['key_words'] = key_words
+
+            return redirect("client2")
         return render(request, 'website/clientkeywords2.html')
     else:
         return render(request, 'website/landingpage.html')
@@ -84,9 +81,8 @@ def clientpage2(request):
             current_date = request.POST.get('currentdate')
             product_type = request.POST.get('productType')
             product_details = request.POST.get('productdetails')
-            key_words = request.POST.getlist('keywords')
-            firstHand = bool(request.POST.get('MostViews', False))
-            secondHand = bool(request.POST.get('Newest', False))
+            key_words = request.session.get('key_words', [])
+            product_condition = request.POST.get('productCondition')
 
             if date_selection == 'Custom':
                 date_selection = current_date,
@@ -100,8 +96,7 @@ def clientpage2(request):
                 product_type=product_type,
                 product_details=product_details,
                 key_words=','.join(key_words),
-                firsthand=firstHand,
-                secondhand=secondHand,
+                prototype_con = product_condition,
             )
             client_request.save()
                 
@@ -114,11 +109,29 @@ def clientpage2(request):
                 'product_type': product_type,
                 'product_details': product_details,
                 'key_words' : key_words,
-                'firsthand': firstHand,
-                'secondhand': secondHand,
+                'condition' : product_condition,
             }
             return render(request, 'website/clientresults.html', context)
         return render(request, 'website/clientpreferences.html')
+    else:
+        return render(request, 'website/landingpage.html')
+    
+def clientmanagement(request):
+    global ClientAccess
+    global ClientLoginEmail
+    if ClientAccess == 1:
+        product_type = request.GET.get('product_type', '')
+
+        client_requests = ClientRequest.objects.filter(client=ClientLoginEmail)
+
+        if product_type:
+            client_requests = client_requests.filter(product_type__icontains=product_type)
+
+        return render(request, 'website/clientrequests.html', {
+            'client_requests': client_requests, 
+            'client': ClientLoginEmail,
+            'product_type': product_type,
+            })
     else:
         return render(request, 'website/landingpage.html')
     
@@ -159,10 +172,9 @@ def sellerpage1(request):
         if request.method == 'POST':
             key_words = request.POST.getlist('keywords')
             
-            context = {
-                'key_words' : key_words,
-            }
-            return render(request, 'website/sellerimage.html', context)
+            request.session['key_words2'] = key_words
+
+            return redirect("seller2")
         return render(request, 'website/sellerkeywords.html')
     else:
         return render(request, 'website/landingpage.html')
@@ -173,10 +185,9 @@ def sellerpage1_2(request):
         if request.method == 'POST':
             key_words = request.POST.getlist('keywords')
             
-            context = {
-                'key_words' : key_words,
-            }
-            return render(request, 'website/sellerimage.html', context)
+            request.session['key_words2'] = key_words
+
+            return redirect("seller2")
         return render(request, 'website/sellerkeywords2.html')
     else:
         return render(request, 'website/landingpage.html')
@@ -186,7 +197,7 @@ def sellerpage2(request):
     if SellerAccess == 1:
         if request.method == 'POST':
             image = request.FILES.get('image')
-            key_words = request.POST.getlist('keywords')
+            key_words = request.session.get('key_words', [])
 
             seller_product = SellerProduct(
                 seller=SellerLoginEmail,
@@ -202,5 +213,14 @@ def sellerpage2(request):
             }
             return render(request, 'website/sellerproduct.html', context)
         return render(request, 'website/sellerimage.html')
+    else:
+        return render(request, 'website/landingpage.html')
+    
+def sellermanagement(request):
+    global SellerAccess
+    global SellerLoginEmail
+    if SellerAccess == 1:
+        seller_products = SellerProduct.objects.filter(seller=SellerLoginEmail)
+        return render(request, 'website/sellerproductmanage.html', {'seller_products': seller_products, 'seller': SellerLoginEmail})
     else:
         return render(request, 'website/landingpage.html')

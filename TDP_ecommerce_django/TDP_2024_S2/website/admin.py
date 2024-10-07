@@ -7,9 +7,9 @@ class ClientAdmin(admin.ModelAdmin):
 
 @admin.register(ClientRequest)
 class ClientRequestAdmin(admin.ModelAdmin):
-    list_display = ('request_id', 'client', 'min_price', 'max_price', 'request_date', 'end_date', 'product_type', 'firsthand', 'secondhand')
+    list_display = ('request_id', 'client', 'min_price', 'max_price', 'request_date', 'end_date', 'product_type', 'product_con')
     search_fields = ('product_type', 'product_details')
-    list_filter = ('request_date', 'product_type', 'firsthand', 'secondhand')
+    list_filter = ('request_date', 'product_type', 'product_con')
 
 @admin.register(Seller)
 class SellerAdmin(admin.ModelAdmin):

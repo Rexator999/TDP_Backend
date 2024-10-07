@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seller's Image</title>
+    <title>Seller's Image Page</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
+    <a href="{% url 'seller1' %}">Upload a Product</a>
+    <a href="{% url 'sellermanage' %}">My Products</a>
+    <br>
+    <br>
     <h1>Image Uploaded Successfully By {{ seller }}</h1>
     {% if image %}
         <h2>Uploaded Image:</h2>

@@ -9,13 +9,14 @@
     <script src="{% static 'js/home.js' %}" defer></script>
 </head>
 <body>
+    <a href="{% url 'seller1' %}">Upload a Product</a>
+    <a href="{% url 'sellermanage' %}">My Products</a>
     <br>
     <br>
     <h1>Seller</h1>
     <form method="post" enctype="multipart/form-data">
         <p>Please Upload an Image</p>
         {% csrf_token %}
-        <input type="hidden" id="keywords" name="keywords" value="{{ key_words }}">
         <label for="imageUpload">Choose an image to upload:</label>
         <input type="file" name="image" accept="image/*" required>
         <br><br>

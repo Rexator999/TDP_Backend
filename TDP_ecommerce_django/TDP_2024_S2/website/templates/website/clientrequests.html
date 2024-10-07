@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Requests</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <a href="{% url 'client1' %}">Make a Product Request</a>
+    <a href="{% url 'clientmanage' %}">My Requests</a>
+    <br>
+    <br>
+    <h1>Welcome {{ client }}</h1>
+    <form method="get" action="">
+        <label for="productType">Product Type:</label>
+        <select id="productType" name="product_type">
+            <option value="">--Select Product Type--</option>
+            <option value="Tech" {% if product_type == "Tech" %}selected{% endif %}>Tech</option>
+            <option value="Furniture" {% if product_type == "Furniture" %}selected{% endif %}>Furniture</option>
+            <option value="Food" {% if product_type == "Food" %}selected{% endif %}>Food</option>
+            <option value="Fashion" {% if product_type == "Fashion" %}selected{% endif %}>Fashion</option>
+            <option value="Music" {% if product_type == "Music" %}selected{% endif %}>Music</option>
+            <option value="Games" {% if product_type == "Games" %}selected{% endif %}>Games</option>
+            <option value="Books" {% if product_type == "Books" %}selected{% endif %}>Books</option>
+            <option value="Movies" {% if product_type == "Movies" %}selected{% endif %}>Movies</option>
+            <option value="Healthcare" {% if product_type == "Healthcare" %}selected{% endif %}>Healthcare</option>
+            <option value="Pet" {% if product_type == "Pet" %}selected{% endif %}>Pet</option>
+            <option value="Arts" {% if product_type == "Arts" %}selected{% endif %}>Arts</option>
+        </select>
+
+        <button type="submit">Filter</button>
+    </form>
+    {% if client_requests %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Request ID</th>
+                    <th>Product Type</th>
+                    <th>Key Words</th>
+                    <th>Product Details</th>
+                    <th>Min Price</th>
+                    <th>Max Price</th>
+                    <th>Request Date</th>
+                    <th>End Date</th>
+                    <th>Prototype Condition</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in client_requests %}
+                <tr>
+                    <td>{{ request.request_id }}</td>
+                    <td>{{ request.product_type }}</td>
+                    <td>{{ request.key_words }}</td>
+                    <td>{{ request.product_details }}</td>
+                    <td>{{ request.min_price }}</td>
+                    <td>{{ request.max_price }}</td>
+                    <td>{{ request.request_date }}</td>
+                    <td>{{ request.end_date }}</td>
+                    <td>{{ request.product_con }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p> No requests found for this Client.</p>
+    {% endif %}
+</body>
+</html>

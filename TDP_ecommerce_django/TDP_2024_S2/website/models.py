@@ -19,9 +19,8 @@ class ClientRequest(models.Model):
     product_type = models.CharField(max_length=50)
     product_details = models.TextField()
     key_words = models.TextField()
-    firsthand = models.BooleanField(default=False)
-    secondhand = models.BooleanField(default=False)
-
+    product_con = models.CharField(max_length=50)
+    
     def save(self, *args, **kwargs):
         if not self.request_id:
             #this will genarate a new client id

@@ -33,6 +33,8 @@
     </script>
 </head>
 <body>
+    <a href="{% url 'client1' %}">Make a Product Request</a>
+    <a href="{% url 'clientmanage' %}">My Requests</a>
     <br>
     <br>
     <h1>Consumer Preferences:</h1>
@@ -45,7 +47,6 @@
             <div id="slider-range"></div>
             <input type="hidden" id="minPrice" name="minPrice">
             <input type="hidden" id="maxPrice" name="maxPrice">
-            <input type="hidden" id="keywords" name="keywords" value="{{ key_words }}">
 
             <P><label>Date range:</label></P>
             <p><label for="now">Now</label>
@@ -80,9 +81,11 @@
             <p><label>Product Description:</label></p>
             <textarea id="productdetails" name="productdetails" cols="60" rows="8"></textarea>
             <br>
-            <p><label>Search Type:</label></p>
-            <input type="checkbox" id="FirstHand" name="FirstHand" value="FirstHand"><label>First Hand</label>
-            <input type="checkbox" id="SecondHand" name="SecondHand" value="SecondHand"><label>Second Hand</label>
+            <label>Product Condition:</label>
+            <select id="productCondition" name="productCondition">
+                <option value="First Hand">First Hand</option>
+                <option value="Second Hand">Second Hand</option>
+            </select>
 
             <br>
             <br>
