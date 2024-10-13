@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Home Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <h1 class="intropages">Welcome!</h1>
+    <a href="{% url 'clientlogin' %}">Upload a Product</a>
+    <a href="{% url 'sellerlogin' %}">My Products</a>
+</body>
+</html>

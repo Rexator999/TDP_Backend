@@ -1,20 +1,35 @@
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from . import views
+from .views import (
+    ClientListCreateView, ClientDetailView, ClientRequestListCreateView, ClientRequestDetailView, ClientLoginView, ClientRegisterView, ClientHomeView,
+
+    SellerListCreateView, SellerDetailView, SellerProductListCreateView, SellerProductDetailView,
+
+)
 
 urlpatterns = [
-    path('', views.landingpage, name=""),
-    path('clientlogin', views.clientloginpage, name="clientlogin"),
-    path('clientregister', views.clientregisterpage, name="clientregister"),
-    path('client1', views.clientpage1, name="client1"),
-    path('client1_2', views.clientpage1_2, name="client1_2"),
-    path('client2', views.clientpage2, name="client2"),
-    path('clientmanage', views.clientmanagement, name="clientmanage"),
-    path('sellerlogin', views.sellerloginpage, name="sellerlogin"),
-    path('sellerregister', views.sellerregisterpage, name="sellerregister"),
-    path('seller1', views.sellerpage1, name="seller1"),
-    path('seller1_2', views.sellerpage1_2, name="seller1_2"),
-    path('seller2', views.sellerpage2, name="seller2"),
-    path('sellermanage', views.sellermanagement, name="sellermanage"),
+    
+
+    path('logout/', views.logout, name='logout'),
+
+    path('clientregister/', ClientRegisterView.as_view(), name='client_register'),
+    path('clientlogin/', ClientLoginView.as_view(), name='client_login'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('clienthome/', ClientHomeView.as_view(), name='clienthome'),
+
+    path('clients/', ClientListCreateView.as_view(), name='client-list-create'),
+    path('clients/<int:pk>/', ClientDetailView.as_view(), name='client-detail'),
+
+    path('client-requests/', ClientRequestListCreateView.as_view(), name='client-request-list-create'),
+    path('client-requests/<int:pk>/', ClientRequestDetailView.as_view(), name='client-request-detail'),
+
+    path('sellers/', SellerListCreateView.as_view(), name='seller-list-create'),
+    path('sellers/<int:pk>/', SellerDetailView.as_view(), name='seller-detail'),
+
+    path('seller-products/', SellerProductListCreateView.as_view(), name='seller-product-list-create'),
+    path('seller-products/<int:pk>/', SellerProductDetailView.as_view(), name='seller-product-detail'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
